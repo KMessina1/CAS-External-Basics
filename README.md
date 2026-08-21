@@ -4,10 +4,10 @@ Public Swift package for reusable Creative App Solutions standard SwiftUI and UI
 
 ## Requirements
 
-- Xcode 16 or later
+- Xcode 26 or later
 - Swift 6
-- iOS 17 or later
-- Mac Catalyst 17 or later
+- iOS 26 or later
+- Mac Catalyst 26 or later
 
 ## Add to an Xcode project
 

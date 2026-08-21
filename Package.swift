@@ -1,10 +1,10 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.2
 /*-------------------------------------------------------------------------------------------------------------------------
      File: Package.swift
    Author: Kevin Messina
   Created: 8/21/26
- Modified: 08/21/2026 12:27 PM EDT
-  Version: 1
+ Modified: 08/21/2026 06:05 PM EDT
+  Version: 7
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -17,8 +17,8 @@ import PackageDescription
 let package = Package(
     name: "CAS-External-Basics",
     platforms: [
-        .iOS(.v17),
-        .macCatalyst(.v17)
+        .iOS(.v26),
+        .macCatalyst(.v26)
     ],
     products: [
         .library(
@@ -26,9 +26,21 @@ let package = Package(
             targets: ["CASExternalBasics"]
         )
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/KMessina1/CAS-External-Foundations.git",
+            from: "1.1.5"
+        )
+    ],
     targets: [
         .target(
-            name: "CASExternalBasics"
+            name: "CASExternalBasics",
+            dependencies: [
+                .product(
+                    name: "CASExternalFoundations",
+                    package: "CAS-External-Foundations"
+                )
+            ]
         ),
         .testTarget(
             name: "CASExternalBasicsTests",
