@@ -3,8 +3,8 @@
      File: Package.swift
    Author: Kevin Messina
   Created: 8/21/26
- Modified: 08/21/2026 06:05 PM EDT
-  Version: 7
+ Modified: 08/22/2026 04:34 PM EDT
+  Version: 8
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -30,6 +30,10 @@ let package = Package(
         .package(
             url: "https://github.com/KMessina1/CAS-External-Foundations.git",
             from: "1.1.5"
+        ),
+        .package(
+            url: "https://github.com/KMessina1/CAS-ThemeSupport.git",
+            from: "1.1.1"
         )
     ],
     targets: [
@@ -39,6 +43,10 @@ let package = Package(
                 .product(
                     name: "CASExternalFoundations",
                     package: "CAS-External-Foundations"
+                ),
+                .product(
+                    name: "CASThemeSupport",
+                    package: "CAS-ThemeSupport"
                 )
             ]
         ),
