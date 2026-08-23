@@ -2,8 +2,8 @@
      File: DetailLines.swift
    Author: Kevin Messina
   Created: 9/8/25
- Modified: 08/22/2026 09:04 PM EDT
-  Version: 13
+ Modified: 08/23/2026 12:58 PM EDT
+  Version: 14
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -455,6 +455,7 @@ public struct DetailLine {
             Text(title)
                 .foregroundStyle(CT.fair)
                 .lineLimit(1)
+                .layoutPriority(1)
             
             Spacer(minLength: 0)
             
