@@ -2,8 +2,8 @@
      File: Jurisdictions.swift
    Author: Kevin Messina
   Created: 2/18/24
- Modified: 08/21/2026 01:38 PM EDT
-  Version: 1
+ Modified: 08/24/2026 05:13 PM EDT
+  Version: 2
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
  
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -70,181 +70,15 @@ public extension String {
 /// Structs for Jurisdictions.
 public class Jurisdictions {
     public init() {}
-    public var Version: String { return "4.02" }
+    public var Version: String { return "5.0" }
     
     public typealias JS = JurisdictionStruct
-    public enum Juristype { case state,province,territory,district,outlyingTerritories,freeStates,
-                                 militaryMailCode,minorTerritory,provincialTerritory,country,unknown}
-    public enum JurisRegion { case continental,nonContiguous,possession,military,country,unknown}
 
     public let notSelectedText: String = "Not Selected"
     public let unselectedText: String = "-- Unselected --"
     public let dashesText: String = "--"
 
-// MARK: - *** JURISDICTION STRUCTS ***
-// MARK: --> *** Continents ***
-    public struct Continents {
-        public static let Africa = "Africa"
-        public static let Antarctica = "Antarctica"
-        public static let Asia = "Asia"
-        public static let Australia = "Australia"
-        public static let Europe = "Europe"
-        public static let NorthAmerica = "North America"
-        public static let SouthAmerica = "South America"
-        public static let all = [Africa,Antarctica,Asia,Australia,Europe,NorthAmerica,SouthAmerica].sorted()
-    }
 
-// MARK: --> *** Seas ***
-    public struct Seas {
-        public static let Arctic = "Arctic"
-        public static let NorthAtlantic = "North Atlantic"
-        public static let SouthAtlantic = "South Atlantic"
-        public static let NorthPacific = "North Pacific"
-        public static let SouthPacific = "South Pacific"
-        public static let Indian = "Indian"
-        public static let Southern = "Southern"
-        public static let all = [Arctic,NorthAtlantic,SouthAtlantic,NorthPacific,SouthPacific,Indian,Southern].sorted()
-    }
-
-// MARK: --> *** Oceans ***
-    public struct Oceans {
-        public static let Arctic = "Arctic"
-        public static let Atlantic = "Atlantic"
-        public static let Pacific = "Pacific"
-        public static let Indian = "Indian"
-        public static let Southern = "Southern"
-        public static let all = [Arctic,Atlantic,Pacific,Indian,Southern].sorted()
-    }
-
-// MARK: --> *** JurisdictionStruct ***
-    public struct JurisdictionStruct {
-        public var name:String!
-        public var code:String!
-        public var country:String!
-        public var type:Juristype!
-        public var region:JurisRegion!
-        public var flagImgName:String!
-        public var currency:String!
-        public var currencyCode:String!
-        public var currencySymbol:String!
-        public var codeISO:String!
-        
-        public init(
-            name:String? = "",
-            code:String? = "",
-            country:String? = "",
-            type:Juristype? = Juristype.country,
-            region:JurisRegion = JurisRegion.country,
-            flagImgName:String? = "",
-            currency:String? = "",
-            currencyCode:String? = "",
-            currencySymbol:String? = "",
-            codeISO:String? = ""
-        ){
-            self.name = name
-            self.code = code
-            self.country = country
-            self.type = type
-            self.region = region
-            self.flagImgName = flagImgName
-            self.currency = currency
-            self.currencyCode = currencyCode
-            self.currencySymbol = currencySymbol
-            self.codeISO = codeISO!
-        }
-    }
-
-// MARK: --> *** Canada ***
-    public struct Canada {
-        public static let all:[JS] = (Provinces.all + Territories.all).sorted(by: { ($0.name < $1.name) })
-        
-        public struct Provinces {
-            public static let Alberta:JS = JS(name:"Alberta",code:"AB",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let BritishColumbia:JS = JS(name:"British Columbia",code:"BC",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let Manitoba:JS = JS(name:"Manitoba",code:"MB",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let NewBrunswick:JS = JS(name:"New Brunswick",code:"NB",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let NewfoundlandAndLabrador:JS = JS(name:"Newfoundland and Labrador",code:"NL",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let NovaScotia:JS = JS(name:"Nova Scotia",code:"NS",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let Nunavut:JS = JS(name:"Nunavut",code:"NU",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let Ontario:JS = JS(name:"Ontario",code:"ON",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let PrinceEdwardIsland:JS = JS(name:"Prince Edward Island",code:"PE",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let Quebec:JS = JS(name:"Quebec",code:"QC",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let Saskatchewan:JS = JS(name:"Saskatchewan",code:"SK",country:"Canada",type:.province,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let all:[JS] = [Alberta,BritishColumbia,Manitoba,NewBrunswick,NewfoundlandAndLabrador,NovaScotia,Nunavut,Ontario,PrinceEdwardIsland,Quebec,].sorted(by: { ($0.name < $1.name) })
-        }
-        
-        public struct Territories {
-            public static let Northwest:JS = JS(name:"Northwest Territories",code:"NT",country:"Canada",type:.provincialTerritory,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let Yukon:JS = JS(name:"Yukon Territory",code:"YT",country:"Canada",type:.provincialTerritory,region:.country,flagImgName:"Canada",currency:"Canadian Dollar",currencyCode:"CD",currencySymbol:"$")
-            public static let all:[JS] = [Northwest,Yukon].sorted(by: { ($0.name < $1.name) })
-        }
-        
-        public func arrNames(jurisdictions: [JS]) -> [String] {
-            var provinces:[String] = []
-            
-            jurisdictions.forEach { (provinceStruct) in
-                provinces.append( provinceStruct.name )
-            }
-            
-            return provinces.sorted()
-        }
-    }
-    
-// MARK: --> *** Mexico ***
-    public struct Mexico  {
-        public static let all:[JS] = States.all.sorted(by: { ($0.name < $1.name) })
-        
-        public struct States {
-            public static let Aguascalientes:JS = JS(name:"Aguascalientes",code:"AG",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let BajaCalifornia:JS = JS(name:"Baja California",code:"BC",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let BajaCaliforniaSur:JS = JS(name:"Baja California Sur",code:"BS",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Campeche:JS = JS(name:"Campeche",code:"CM",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Coahuila:JS = JS(name:"Coahuila",code:"CO",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Colima:JS = JS(name:"Colima",code:"CL",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Chiapas:JS = JS(name:"Chiapas",code:"CS",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Chihuahua:JS = JS(name:"Chihuahua",code:"CH",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Durango:JS = JS(name:"Durango",code:"DG",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Guanajuato:JS = JS(name:"Guanajuato",code:"GT",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Guerrero:JS = JS(name:"Guerrero",code:"GR",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Hidalgo:JS = JS(name:"Hidalgo",code:"HG",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Jalisco:JS = JS(name:"Jalisco",code:"JA",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Mexico:JS = JS(name:"Mexico",code:"EM",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let MexicoCity:JS = JS(name:"Mexico City",code:"DF",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Michoacan:JS = JS(name:"Michoacan",code:"MI",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Morelos:JS = JS(name:"Morelos",code:"MO",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Nayarit:JS = JS(name:"Nayarit",code:"NA",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let NuevoLeón:JS = JS(name:"Nuevo León",code:"NL",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Oaxaca:JS = JS(name:"Oaxaca",code:"OA",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Puebla:JS = JS(name:"Puebla",code:"PU",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Queretaro:JS = JS(name:"Queretaro",code:"QT",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let QuintanaRoo:JS = JS(name:"Quintana Roo",code:"QR",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let SanLuisPotosi:JS = JS(name:"San Luis Potosi",code:"SL",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Sinaloa:JS = JS(name:"Sinaloa",code:"SI",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Sonora:JS = JS(name:"Sonora",code:"SO",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Tabasco:JS = JS(name:"Tabasco",code:"TB",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Tamaulipas:JS = JS(name:"Tamaulipas",code:"TM",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Tlaxcala:JS = JS(name:"Tlaxcala",code:"TL",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Veracruz:JS = JS(name:"Veracruz",code:"VE",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Yucatán:JS = JS(name:"Yucatán",code:"YU",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let Zacatecas:JS = JS(name:"Zacatecas",code:"ZA",country:"Mexico",type:.state,region:.country,flagImgName:"Mexico",currency:"Mexico Peso",currencyCode:"MXN",currencySymbol:"$")
-            public static let all:[JS] = [
-                Aguascalientes,BajaCalifornia,BajaCaliforniaSur,Campeche,Coahuila,Colima,Chiapas,Chihuahua,Durango,
-                Guanajuato,Guerrero,Hidalgo,Jalisco,Mexico,MexicoCity,Michoacan,Morelos,Nayarit,NuevoLeón,Oaxaca,
-                Puebla,Queretaro,QuintanaRoo,SanLuisPotosi,Sinaloa,Sonora,Tabasco,Tamaulipas,Tlaxcala,Veracruz,Yucatán,Zacatecas
-            ].sorted(by: { ($0.name < $1.name) })
-            
-            public static var arrNames:[String] {
-                var states:[String] = []
-                
-                States.all.forEach { (stateStruct) in
-                    states.append( stateStruct.name )
-                }
-                
-                return states.sorted()
-            }
-        }
-    }
-    
 // MARK: --> *** U.S. ***
     public struct US {
         public static let DC:JS = JS(name:"D.C. (Washington DC)",code:"DC",country:"United States District of Columbia",type:.district,region:.country,flagImgName:"United States",currency:"US Dollar",currencyCode:"USD",currencySymbol:"$")
@@ -1056,4 +890,3 @@ public class Jurisdictions {
         return countries
     }
 }
-
