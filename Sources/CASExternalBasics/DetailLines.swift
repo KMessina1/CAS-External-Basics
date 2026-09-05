@@ -2,8 +2,8 @@
      File: DetailLines.swift
    Author: Kevin Messina
   Created: 9/8/25
- Modified: 08/23/2026 12:58 PM EDT
-  Version: 14
+ Modified: 09/05/2026 05:31 AM EDT
+  Version: 15
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -333,6 +333,25 @@ public struct DetailLine {
         }
         .font(deviceIs.Pad ?.title3 :.headline)
         .fontWidth(.condensed)
+    }
+
+    @ViewBuilder
+    public func bulletedValue(_ value:String,maxChars:Int = 0,width:Font.Width = .condensed) -> some View {
+        let CT = CurrentTheme().getThemeFromUserStds()
+        let displayValue = value.isEmpty ? "--" : value
+        
+        HStack(alignment: .top, spacing: 1) {
+            Text("• ")
+                .foregroundStyle(CT.fair)
+            
+            Text(displayValue)
+                .foregroundStyle(CT.lightest)
+                .multilineTextAlignment(.leading)
+                .lineLimit(nil)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .font(deviceIs.Pad ?.title3 :.headline)
+        .fontWidth(width)
     }
 
     public func titleValueView(
