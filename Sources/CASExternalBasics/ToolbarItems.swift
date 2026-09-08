@@ -2,8 +2,8 @@
      File: ToolbarItems.swift
    Author: Kevin Messina
   Created: 10/9/25
- Modified: 08/21/2026 03:23 PM EDT
-  Version: 5
+ Modified: 09/08/2026 05:05 PM EDT
+  Version: 6
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -83,6 +83,8 @@ public struct ToolbarItemViews {
         case share
         case textSize
         case closeAll
+        case erase
+        case clear
 
         public var id: Int { rawValue }
 
@@ -91,8 +93,10 @@ public struct ToolbarItemViews {
             case .add: return "plus"
             case .barcode: return "barcode.viewfinder"
             case .cancel: return "chevron.left"
-            case .close: return "x.circle"
+            case .clear: return "info"
+            case .close: return "eraser.line.dashed"
             case .closeAll: return "platter.filled.top.and.arrow.up.iphone"
+            case .erase: return "eraser.line.dashed"
             case .info: return "info"
             case .menu: return "line.3.horizontal"
             case .reorder: return "arrow.up.and.down.text.horizontal"
@@ -111,6 +115,7 @@ public struct ToolbarItemViews {
         case orange
         case theme
         case clear
+        case purple
 
         public var id: Int { rawValue }
 
@@ -128,6 +133,8 @@ public struct ToolbarItemViews {
                 return .accentColor.opacity(0.66)
             case .clear:
                 return .clear
+            case .purple:
+                return Color(.purple)
             }
         }
 
