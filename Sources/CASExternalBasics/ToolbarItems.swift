@@ -2,10 +2,10 @@
      File: ToolbarItems.swift
    Author: Kevin Messina
   Created: 10/9/25
- Modified: 09/08/2026 05:05 PM EDT
-  Version: 6
+ Modified: 10/22/2026 12:07 PM EDT
+  Version: 7
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
-
+ 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------
 NOTES:
@@ -22,26 +22,26 @@ public enum ToolbarThemeStorage {
     static let titleColorKey = "CASExternalBasics.Toolbar.titleColor"
     static let defaultButtonRGBA = "007AFFA8"
     static let defaultTitleRGBA = "FFFFFFFF"
-
+    
     public static func saveButtonColor(_ color: Color) {
         save(color, forKey: buttonColorKey)
     }
-
+    
     public static func saveTitleColor(_ color: Color) {
         save(color, forKey: titleColorKey)
     }
-
+    
     private static func save(_ color: Color, forKey key: String) {
         let uiColor = UIColor(color)
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
         var alpha: CGFloat = 0
-
+        
         guard uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
             return
         }
-
+        
         let rgba = String(
             format: "%02X%02X%02X%02X",
             Int(round(red * 255)),
@@ -51,10 +51,10 @@ public enum ToolbarThemeStorage {
         )
         UserDefaults.standard.set(rgba, forKey: key)
     }
-
+    
     static func color(from rgba: String) -> Color {
         let value = UInt64(rgba, radix: 16) ?? 0x007AFFA8
-
+        
         return Color(
             .sRGB,
             red: Double((value >> 24) & 0xFF) / 255,
@@ -69,45 +69,59 @@ public enum ToolbarThemeStorage {
 public struct ToolbarItemViews {
     public init() {
     }
-
+    
     public enum iconNames: Int, CaseIterable, Identifiable {
         case add
         case barcode
+        case camera
         case cancel
+        case clear
         case close
+        case closeAll
+        case document
+        case erase
         case info
         case menu
+        case photo
         case reorder
+        case reset
         case save
         case setting
         case share
+        case table
+        case tap
         case textSize
-        case closeAll
-        case erase
-        case clear
-
+        case trash
+        
         public var id: Int { rawValue }
-
+        
         public var name: String {
             switch self {
-            case .add: return "plus"
-            case .barcode: return "barcode.viewfinder"
-            case .cancel: return "chevron.left"
-            case .clear: return "info"
-            case .close: return "eraser.line.dashed"
-            case .closeAll: return "platter.filled.top.and.arrow.up.iphone"
-            case .erase: return "eraser.line.dashed"
-            case .info: return "info"
-            case .menu: return "line.3.horizontal"
-            case .reorder: return "arrow.up.and.down.text.horizontal"
-            case .save: return "checkmark"
-            case .setting: return "gear"
-            case .share: return "square.and.arrow.up"
-            case .textSize: return "textformat.size"
+                case .add: return "plus"
+                case .barcode: return "barcode.viewfinder"
+                case .camera: return "camera"
+                case .cancel: return "chevron.left"
+                case .clear: return "eraser.line.dashed"
+                case .close: return "xmark"
+                case .closeAll: return "platter.filled.top.and.arrow.up.iphone"
+                case .document: return "richtext.page"
+                case .erase: return "eraser.badge.xmark"
+                case .info: return "info"
+                case .menu: return "line.3.horizontal"
+                case .photo: return "photo"
+                case .reorder: return "arrow.up.and.down.text.horizontal"
+                case .reset: return "slider.horizontal.2.arrow.trianglehead.counterclockwise"
+                case .save: return "checkmark"
+                case .setting: return "gear"
+                case .share: return "square.and.arrow.up"
+                case .table: return "tablecells.badge.ellipsis"
+                case .tap: return "hand.raised.fingers.spread"
+                case .textSize: return "textformat.size"
+                case .trash: return "trash"
             }
         }
     }
-
+    
     public enum tintColorNames: Int, CaseIterable, Identifiable {
         case red
         case green
@@ -116,48 +130,48 @@ public struct ToolbarItemViews {
         case theme
         case clear
         case purple
-
+        
         public var id: Int { rawValue }
-
+        
         public var buttonColor: Color {
             switch self {
-            case .red:
-                return Color(.displayP3, red: 0.611, green: 0.198, blue: 0.191)
-            case .green:
-                return Color(.sRGB, red: 0.206, green: 0.557, blue: 0.341)
-            case .blue:
-                return Color(.sRGB, red: 0.093, green: 0.160, blue: 0.759)
-            case .orange:
-                return Color(.displayP3, red: 0.600, green: 0.349, blue: 0.126)
-            case .theme:
-                return .accentColor.opacity(0.66)
-            case .clear:
-                return .clear
-            case .purple:
-                return Color(.purple)
+                case .red:
+                    return Color(.displayP3, red: 0.611, green: 0.198, blue: 0.191)
+                case .green:
+                    return Color(.sRGB, red: 0.206, green: 0.557, blue: 0.341)
+                case .blue:
+                    return Color(.sRGB, red: 0.093, green: 0.160, blue: 0.759)
+                case .orange:
+                    return Color(.displayP3, red: 0.600, green: 0.349, blue: 0.126)
+                case .theme:
+                    return .accentColor.opacity(0.66)
+                case .clear:
+                    return .clear
+                case .purple:
+                    return Color(.purple)
             }
         }
-
+        
         public func resolvedButtonColor(themeColor: Color) -> Color {
             self == .theme ? themeColor : buttonColor
         }
     }
-
+    
     public func buttonImg(_ imgName: iconNames, color: Color = .white) -> some View {
         Image(systemName: imgName.name)
             .foregroundStyle(color)
     }
-
+    
     public struct buttonColor: ViewModifier {
         @AppStorage(ToolbarThemeStorage.buttonColorKey)
         private var storedToolbarButtonColor = ToolbarThemeStorage.defaultButtonRGBA
-
+        
         public let color: tintColorNames
-
+        
         public init(color: tintColorNames) {
             self.color = color
         }
-
+        
         public func body(content: Content) -> some View {
             content
                 .buttonStyle(.glassProminent)
@@ -168,15 +182,15 @@ public struct ToolbarItemViews {
                 )
         }
     }
-
+    
     public struct glassButtonColor: ViewModifier {
         @AppStorage(ToolbarThemeStorage.buttonColorKey)
         private var storedToolbarButtonColor = ToolbarThemeStorage.defaultButtonRGBA
-
+        
         public var color: tintColorNames
         public var padding: CGFloat
         public var opacity: CGFloat
-
+        
         public init(
             color: tintColorNames,
             padding: CGFloat = 15,
@@ -186,34 +200,34 @@ public struct ToolbarItemViews {
             self.padding = padding
             self.opacity = opacity
         }
-
+        
         public func body(content: Content) -> some View {
             content
                 .padding(.all, padding)
                 .glassEffect(
                     color == .clear
-                        ? .clear
-                        : .regular.tint(
-                            color.resolvedButtonColor(
-                                themeColor: ToolbarThemeStorage.color(from: storedToolbarButtonColor)
-                            ).opacity(opacity)
-                        )
+                    ? .clear
+                    : .regular.tint(
+                        color.resolvedButtonColor(
+                            themeColor: ToolbarThemeStorage.color(from: storedToolbarButtonColor)
+                        ).opacity(opacity)
+                    )
                 )
         }
     }
-
+    
     public func title(_ title: String) -> some ToolbarContent {
         ToolbarItem(placement: .title) {
             ToolbarTitleText(title: title, isSubtitle: false)
         }
     }
-
+    
     public func subtitle(_ title: String) -> some ToolbarContent {
         ToolbarItem(placement: .subtitle) {
             ToolbarTitleText(title: title, isSubtitle: true)
         }
     }
-
+    
     public func recordIDSubtitle(id: Int64) -> some ToolbarContent {
         ToolbarItem(placement: .subtitle) {
             HStack(spacing: 0) {
@@ -226,14 +240,14 @@ public struct ToolbarItemViews {
             .fontWidth(.condensed)
         }
     }
-
+    
     private struct ToolbarTitleText: View {
         @AppStorage(ToolbarThemeStorage.titleColorKey)
         private var storedToolbarTitleColor = ToolbarThemeStorage.defaultTitleRGBA
-
+        
         let title: String
         let isSubtitle: Bool
-
+        
         var body: some View {
             Text(isSubtitle ? title : title.uppercased())
                 .fontWeight(isSubtitle ? .light : .regular)
