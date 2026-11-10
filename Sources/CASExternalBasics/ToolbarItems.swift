@@ -2,9 +2,9 @@
      File: ToolbarItems.swift
    Author: Kevin Messina
   Created: 10/9/25
- Modified: 10/22/2026 12:07 PM EDT
-  Version: 7
-   Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
+ Modified: 11/10/2026 10:23 AM EST
+  Version: 8
+   Source: CODEX: (GPT-6 (Sol)) 🤖AI Code a portion or all of this code.
  
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------
@@ -79,6 +79,7 @@ public struct ToolbarItemViews {
         case close
         case closeAll
         case document
+        case edit
         case erase
         case info
         case menu
@@ -105,6 +106,7 @@ public struct ToolbarItemViews {
                 case .close: return "xmark"
                 case .closeAll: return "platter.filled.top.and.arrow.up.iphone"
                 case .document: return "richtext.page"
+                case .edit: return "square.and.pencil"
                 case .erase: return "eraser.badge.xmark"
                 case .info: return "info"
                 case .menu: return "line.3.horizontal"
